@@ -1,0 +1,89 @@
+{
+  "skill_name": "novidades-matinal-ia",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "briefing de hoje",
+      "expected_output": "Um arquivo novidades-YYYY-MM-DD.html gerado na pasta de trabalho atual, com dashboard dark mode em português contendo seção de destaques e mais notícias sobre IA, com links clicáveis para as fontes originais.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Um arquivo HTML foi criado com nome no padrão novidades-YYYY-MM-DD.html",
+          "type": "file_exists"
+        },
+        {
+          "text": "O HTML contém a seção de Destaques (🔥) com pelo menos 3 cards",
+          "type": "content_check"
+        },
+        {
+          "text": "O HTML contém a seção Mais Notícias (📰)",
+          "type": "content_check"
+        },
+        {
+          "text": "Os títulos e resumos estão em português brasileiro (não inglês)",
+          "type": "content_check"
+        },
+        {
+          "text": "Os cards têm links com target='_blank' apontando para as URLs originais",
+          "type": "content_check"
+        },
+        {
+          "text": "O design usa dark mode com background #0a0a0a e cores de acento #00ff87 / #3b82f6",
+          "type": "content_check"
+        },
+        {
+          "text": "O terminal exibe resumo com contagem de notícias por fonte e caminho do arquivo",
+          "type": "terminal_output"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "o que aconteceu em IA hoje? quero ver as novidades",
+      "expected_output": "Dashboard HTML gerado com notícias filtradas sobre IA (agentes, modelos, lançamentos), traduzidas para pt-BR, salvo como novidades-YYYY-MM-DD.html e aberto automaticamente no browser.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "O arquivo HTML foi gerado e salvo corretamente",
+          "type": "file_exists"
+        },
+        {
+          "text": "O conteúdo é filtrado para IA — não inclui notícias sem relação com o tema",
+          "type": "content_check"
+        },
+        {
+          "text": "O cabeçalho contém a data por extenso em português (ex: '13 de abril de 2025')",
+          "type": "content_check"
+        },
+        {
+          "text": "O rodapé menciona as fontes consultadas (Hacker News e/ou TechCrunch)",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "ia matinal",
+      "expected_output": "Dashboard gerado e aberto no browser com notícias das últimas horas sobre IA das fontes Hacker News e TechCrunch.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "A skill foi acionada corretamente pelo trigger 'ia matinal'",
+          "type": "trigger_check"
+        },
+        {
+          "text": "HTML gerado com pelo menos 5 notícias no total",
+          "type": "content_check"
+        },
+        {
+          "text": "Google Fonts (Inter e DM Mono) são importadas no HTML",
+          "type": "content_check"
+        },
+        {
+          "text": "O HTML é autocontido (sem dependências externas além do Google Fonts)",
+          "type": "content_check"
+        }
+      ]
+    }
+  ]
+}

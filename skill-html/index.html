@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custos Operacionais — ChatBot Jurídico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* === 1. Design Tokens === */
+    :root {
+      --bg-primary:     #0D0E0F;
+      --bg-surface:     #141618;
+      --bg-raised:      #1C1F22;
+      --border:         #2A2E33;
+      --border-hover:   #3A3F46;
+      --text-primary:   #E8E2D9;
+      --text-secondary: #7A7F88;
+      --text-tertiary:  #3A3F46;
+      --accent-gold:    #C9A84C;
+      --accent-gold-dim: rgba(201, 168, 76, 0.15);
+      --accent-amber:   #E07B39;
+      --accent-green:   #4CAF7D;
+      --accent-red:     #E05252;
+      --font-display:   'Playfair Display', Georgia, serif;
+      --font-mono:      'DM Mono', 'Courier New', monospace;
+      --font-body:      'DM Sans', system-ui, sans-serif;
+    }
+
+    /* === 2. Reset & Base === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--accent-gold-dim); color: var(--accent-gold); }
+
+    /* === 3. Layout Primitives === */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    section:first-of-type { border-top: none; }
+
+    /* === 4. Typography === */
+    .label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 3rem;
+      max-width: 560px;
+    }
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+    /* === 5. Animations === */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50%       { transform: translateY(8px); opacity: 1; }
+    }
+    @keyframes drawLine {
+      from { stroke-dashoffset: 1000; }
+      to   { stroke-dashoffset: 0; }
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+
+    /* === 6. Navigation === */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 14, 15, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-primary); }
+
+    /* === 7. Hero === */
+    #hero {
+      position: relative;
+      padding: 120px 0 100px;
+      overflow: hidden;
+      border-top: none;
+    }
+    .hero-watermark {
+      position: absolute;
+      right: -4vw;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 40vw;
+      line-height: 1;
+      color: var(--text-tertiary);
+      opacity: 0.55;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.35rem 0.8rem;
+      margin-bottom: 2rem;
+    }
+    .hero-badge span { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent-gold);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat {}
+    .hero-stat-value {
+      font-family: var(--font-mono);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-stat-value span { color: var(--accent-gold); }
+    .hero-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+    }
+    .hero-divider {
+      width: 1px;
+      height: 60px;
+      background: var(--border);
+      align-self: center;
+    }
+    .scroll-hint {
+      margin-top: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-tertiary);
+    }
+    .scroll-hint-arrow {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    .scroll-hint-arrow span {
+      display: block;
+      width: 10px;
+      height: 1px;
+      background: var(--text-tertiary);
+      transform-origin: center;
+    }
+    .scroll-hint-arrow span:first-child { transform: rotate(40deg) translateX(2px); }
+    .scroll-hint-arrow span:last-child  { transform: rotate(-40deg) translateX(2px); }
+    .scroll-hint p { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--font-mono); }
+
+    /* === 8. Metrics Cards === */
+    #metrics .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .metric-card {
+      background: var(--bg-surface);
+      padding: 2rem;
+      transition: background 0.25s;
+    }
+    .metric-card:hover { background: var(--bg-raised); }
+    .metric-card .label { margin-bottom: 1rem; }
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric-value.gold { color: var(--accent-gold); }
+    .metric-value.green { color: var(--accent-green); }
+    .metric-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    /* === 9. Bar Chart === */
+    #breakdown .chart-wrap {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .bar-chart-svg {
+      width: 100%;
+      overflow: visible;
+    }
+    .bar-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      fill: var(--text-secondary);
+    }
+    .bar-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      fill: var(--text-primary);
+      font-weight: 500;
+    }
+    .bar-cache {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      fill: var(--accent-green);
+    }
+    .bar-rect {
+      transition: width 0.9s cubic-bezier(0.34, 1.1, 0.64, 1);
+    }
+    .bar-bg-rect { opacity: 0.04; }
+
+    /* === 10. Token Economics === */
+    #token-econ .econ-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .token-bars-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 2rem;
+      height: 220px;
+      padding: 0 1rem 0;
+    }
+    .token-bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .token-bar-label {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .token-bar-pct {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .token-bar {
+      width: 100%;
+      border-radius: 2px 2px 0 0;
+      transition: height 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .token-bar.baseline { background: var(--text-secondary); height: 0; --target-h: 55px; }
+    .token-bar.cache    { background: var(--accent-green);    height: 0; --target-h: 5px; }
+    .token-bar.output   { background: var(--accent-amber);    height: 0; --target-h: 180px; }
+    .token-bar.animated { height: var(--target-h); }
+    .token-floor {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-top: 0;
+      grid-column: 1 / -1;
+    }
+    .token-callout {
+      background: var(--bg-surface);
+      border-left: 3px solid var(--accent-gold);
+      padding: 1.5rem 1.75rem;
+      margin-top: 0;
+    }
+    .token-callout h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+    .token-callout p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .token-callout p + p { margin-top: 0.6rem; }
+    .token-savings-badge {
+      display: inline-block;
+      background: rgba(76, 175, 125, 0.12);
+      border: 1px solid rgba(76, 175, 125, 0.3);
+      color: var(--accent-green);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-top: 1rem;
+    }
+
+    /* === 11. Projections === */
+    #projections .proj-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .proj-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .proj-card {
+      background: var(--bg-surface);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+    .proj-card:hover { background: var(--bg-raised); }
+    .proj-card.featured {
+      background: var(--bg-raised);
+      border-left: 3px solid var(--accent-gold);
+    }
+    .proj-vol {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+    }
+    .proj-cost-month {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .proj-cost-day {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+    }
+    .proj-chart-wrap {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+    .proj-chart-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    .line-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+    .line-path.animated {
+      animation: drawLine 1.6s ease-in-out forwards;
+    }
+
+    /* === 12. CTA === */
+    #cta { text-align: center; }
+    .cta-wrap { max-width: 600px; margin: 0 auto; }
+    .cta-callout {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      margin: 2rem 0 2.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .cta-callout strong { color: var(--accent-gold); font-style: normal; }
+    .btn-primary {
+      background: var(--accent-gold);
+      color: var(--bg-primary);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 36px rgba(201, 168, 76, 0.3);
+    }
+    .cta-note {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    /* === 13. Footer === */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-brand { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-tertiary); }
+    .footer-note  { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-tertiary); }
+
+    /* === 14. Responsive === */
+    @media (min-width: 768px) {
+      #metrics .cards-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 900px) {
+      #token-econ .econ-grid { grid-template-columns: 1fr; }
+      #projections .proj-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      #metrics .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-stats { gap: 1.5rem; }
+      .hero-divider { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <nav class="container">
+      <a href="#hero" class="nav-brand">§ ChatBot Jurídico</a>
+      <ul class="nav-links">
+        <li><a href="#metrics">Métricas</a></li>
+        <li><a href="#breakdown">Custos</a></li>
+        <li><a href="#projections">Projeções</a></li>
+        <li><a href="#cta">Conclusão</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-watermark" aria-hidden="true">§</div>
+      <div class="container hero-content">
+
+        <div class="hero-badge fade-in">
+          <span class="dot"></span>
+          <span>Relatório de Análise Operacional · 2025</span>
+        </div>
+
+        <h1 class="hero-headline fade-in delay-1">
+          Quanto Custa um<br><em>Advogado Digital?</em>
+        </h1>
+
+        <p class="hero-sub fade-in delay-2">
+          Análise financeira completa de um ChatBot Jurídico com GPT&#8209;5.4&nbsp;mini —
+          6 traces reais, token economics e projeções de escala.
+        </p>
+
+        <div class="hero-stats fade-in delay-3">
+          <div class="hero-stat">
+            <div class="hero-stat-value mono"><span>R$</span> 0,11</div>
+            <div class="hero-stat-label">Custo médio por interação</div>
+          </div>
+          <div class="hero-divider" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value mono"><span>R$</span> 0,66</div>
+            <div class="hero-stat-label">Ciclo completo de análise</div>
+          </div>
+          <div class="hero-divider" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value mono">6</div>
+            <div class="hero-stat-label">Traces analisados</div>
+          </div>
+        </div>
+
+        <div class="scroll-hint fade-in delay-4" aria-hidden="true">
+          <div class="scroll-hint-arrow">
+            <span></span><span></span>
+          </div>
+          <p>Explorar análise</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- METRICS -->
+    <section id="metrics">
+      <div class="container">
+        <p class="label" style="margin-bottom:2rem;">Números principais</p>
+        <div class="cards-grid">
+          <div class="metric-card">
+            <p class="label">Taxa de câmbio</p>
+            <div class="metric-value gold mono" data-target="4.97" data-prefix="R$ " data-decimals="2">R$ 0,00</div>
+            <p class="metric-desc">Por dólar americano</p>
+          </div>
+          <div class="metric-card">
+            <p class="label">Interações analisadas</p>
+            <div class="metric-value mono" data-target="6" data-prefix="" data-decimals="0">0</div>
+            <p class="metric-desc">Traces de produção reais</p>
+          </div>
+          <div class="metric-card">
+            <p class="label">Desconto via Cache</p>
+            <div class="metric-value green mono" data-target="90" data-prefix="" data-suffix="%" data-decimals="0">0%</div>
+            <p class="metric-desc">Context Caching da OpenAI</p>
+          </div>
+          <div class="metric-card">
+            <p class="label">Custo médio / interação</p>
+            <div class="metric-value gold mono" data-target="0.11" data-prefix="R$ " data-decimals="2">R$ 0,00</div>
+            <p class="metric-desc">Média dos 6 traces</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREAKDOWN -->
+    <section id="breakdown">
+      <div class="container">
+        <p class="label">Análise por trace</p>
+        <h2 class="section-title">Os 6 Traces de Interação</h2>
+        <p class="section-subtitle">Cada consulta representa uma etapa real do fluxo jurídico, com custo e aproveitamento de cache distintos.</p>
+
+        <div class="chart-wrap">
+          <svg class="bar-chart-svg" viewBox="0 0 680 340" preserveAspectRatio="xMidYMid meet"
+               role="img" aria-label="Gráfico de barras: custo por trace de interação">
+            <title>Custo por Trace de Interação</title>
+
+            <!-- Grid lines -->
+            <line x1="210" y1="10" x2="210" y2="310" stroke="#2A2E33" stroke-width="1"/>
+            <line x1="350" y1="10" x2="350" y2="310" stroke="#2A2E33" stroke-width="0.5" stroke-dasharray="4,4"/>
+            <line x1="490" y1="10" x2="490" y2="310" stroke="#2A2E33" stroke-width="0.5" stroke-dasharray="4,4"/>
+            <line x1="630" y1="10" x2="630" y2="310" stroke="#2A2E33" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+            <!-- Axis labels -->
+            <text x="210" y="325" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#4A4F58">R$ 0,00</text>
+            <text x="350" y="325" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#4A4F58">R$ 0,10</text>
+            <text x="490" y="325" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#4A4F58">R$ 0,20</text>
+            <text x="630" y="325" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#4A4F58">R$ 0,27</text>
+
+            <!-- Trace 1: R$0,044 — 57% cache — GREEN -->
+            <g transform="translate(0, 20)">
+              <text x="200" y="22" text-anchor="end" class="bar-label">2. Filtragem de Processos</text>
+              <rect x="212" y="10" width="420" height="18" fill="#E8E2D9" class="bar-bg-rect"/>
+              <rect x="212" y="10" width="0" height="18" fill="#4CAF7D" class="bar-rect" data-w="98" rx="1"/>
+              <text x="218" y="43" class="bar-cache">57% cache</text>
+              <text x="316" y="22" dy="0.35em" class="bar-value" style="display:none">R$ 0,044</text>
+            </g>
+
+            <!-- Trace 2: R$0,055 — 0% cache — GOLD -->
+            <g transform="translate(0, 70)">
+              <text x="200" y="22" text-anchor="end" class="bar-label">1. Análise Cadastral</text>
+              <rect x="212" y="10" width="420" height="18" fill="#E8E2D9" class="bar-bg-rect"/>
+              <rect x="212" y="10" width="0" height="18" fill="#C9A84C" class="bar-rect" data-w="122" rx="1"/>
+              <text x="218" y="43" class="bar-cache" style="fill: #7A7F88">0% cache — carga inicial</text>
+            </g>
+
+            <!-- Trace 3: R$0,080 — 52% cache — GOLD -->
+            <g transform="translate(0, 120)">
+              <text x="200" y="22" text-anchor="end" class="bar-label">3. Detalhes de Movimentação</text>
+              <rect x="212" y="10" width="420" height="18" fill="#E8E2D9" class="bar-bg-rect"/>
+              <rect x="212" y="10" width="0" height="18" fill="#C9A84C" class="bar-rect" data-w="176" rx="1"/>
+              <text x="218" y="43" class="bar-cache">52% cache</text>
+            </g>
+
+            <!-- Trace 4: R$0,081 — 67% cache — GOLD -->
+            <g transform="translate(0, 170)">
+              <text x="200" y="22" text-anchor="end" class="bar-label">4. Verificação de Audiências</text>
+              <rect x="212" y="10" width="420" height="18" fill="#E8E2D9" class="bar-bg-rect"/>
+              <rect x="212" y="10" width="0" height="18" fill="#C9A84C" class="bar-rect" data-w="178" rx="1"/>
+              <text x="218" y="43" class="bar-cache">67% cache — máx. eficiência</text>
+            </g>
+
+            <!-- Trace 5: R$0,131 — AMBER -->
+            <g transform="translate(0, 220)">
+              <text x="200" y="22" text-anchor="end" class="bar-label">5. Consolidação de Decisões</text>
+              <rect x="212" y="10" width="420" height="18" fill="#E8E2D9" class="bar-bg-rect"/>
+              <rect x="212" y="10" width="0" height="18" fill="#E07B39" class="bar-rect" data-w="289" rx="1"/>
+              <text x="218" y="43" class="bar-cache" style="fill: #E07B39">alto volume de output</text>
+            </g>
+
+            <!-- Trace 6: R$0,268 — AMBER/RED -->
+            <g transform="translate(0, 270)">
+              <text x="200" y="22" text-anchor="end" class="bar-label">6. Geração do PDF Final</text>
+              <rect x="212" y="10" width="420" height="18" fill="#E8E2D9" class="bar-bg-rect"/>
+              <rect x="212" y="10" width="0" height="18" fill="#E05252" class="bar-rect" data-w="420" rx="1"/>
+              <text x="218" y="43" class="bar-cache" style="fill: #E05252">consolidação completa da sessão</text>
+            </g>
+
+            <!-- Value labels (right-side) — rendered after bars -->
+            <g id="bar-values" opacity="0" style="transition: opacity 0.4s 0.8s">
+              <text x="316" y="37" class="bar-value">R$ 0,044</text>
+              <text x="340" y="87" class="bar-value">R$ 0,055</text>
+              <text x="394" y="137" class="bar-value">R$ 0,080</text>
+              <text x="396" y="187" class="bar-value">R$ 0,081</text>
+              <text x="507" y="237" class="bar-value">R$ 0,131</text>
+              <text x="638" y="287" class="bar-value" text-anchor="end">R$ 0,268</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN ECONOMICS -->
+    <section id="token-econ">
+      <div class="container">
+        <p class="label">Token economics</p>
+        <h2 class="section-title">A Economia do Cache</h2>
+        <p class="section-subtitle">O custo por tipo de token varia drasticamente — entender essa estrutura é a chave para operações eficientes.</p>
+
+        <div class="econ-grid">
+          <div>
+            <div class="token-bars-wrap" id="token-bars">
+              <div class="token-bar-col">
+                <div class="token-bar-pct" style="color: var(--text-secondary);">100%</div>
+                <div class="token-bar baseline" aria-label="Input novo: custo base 100%"></div>
+                <div class="token-bar-label">Input<br>Novo</div>
+              </div>
+              <div class="token-bar-col">
+                <div class="token-bar-pct" style="color: var(--accent-green);">10%</div>
+                <div class="token-bar cache" aria-label="Cache Read: apenas 10% do custo base"></div>
+                <div class="token-bar-label">Cache<br>Read</div>
+              </div>
+              <div class="token-bar-col">
+                <div class="token-bar-pct" style="color: var(--accent-amber);">600%</div>
+                <div class="token-bar output" aria-label="Output: 600% do custo base, mas gera valor"></div>
+                <div class="token-bar-label">Output<br>Gerado</div>
+              </div>
+            </div>
+            <div class="token-floor"></div>
+          </div>
+
+          <div class="token-callout">
+            <h3>Context Caching — OpenAI</h3>
+            <p>
+              O Context Caching armazena partes repetidas do prompt — como instruções do sistema e
+              dados cadastrais da empresa — e as reutiliza a <strong style="color:var(--accent-green)">10% do custo original</strong>.
+            </p>
+            <p>
+              Quanto mais longa a conversa, maior o aproveitamento do cache. No trace 4 (Verificação
+              de Audiências), 67% dos tokens de entrada foram servidos do cache — atingindo
+              a máxima eficiência do ciclo.
+            </p>
+            <p>
+              Isso torna conversas longas e complexas economicamente viáveis para aplicações jurídicas,
+              onde contexto acumulado é essencial.
+            </p>
+            <span class="token-savings-badge">Até 90% de desconto nos tokens de entrada</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTIONS -->
+    <section id="projections">
+      <div class="container">
+        <p class="label">Escala operacional</p>
+        <h2 class="section-title">Projeções Mensais</h2>
+        <p class="section-subtitle">Com base no custo médio de R$ 0,11 por consulta, a estrutura de custos se mantém linear e previsível.</p>
+
+        <div class="proj-layout">
+          <div class="proj-cards">
+            <div class="proj-card">
+              <div>
+                <div class="proj-vol">1.000 consultas/mês</div>
+              </div>
+              <div style="text-align:right">
+                <div class="proj-cost-month mono">R$ 110</div>
+                <div class="proj-cost-day mono">R$ 3,66 / dia</div>
+              </div>
+            </div>
+            <div class="proj-card featured">
+              <div>
+                <div class="proj-vol">5.000 consultas/mês</div>
+              </div>
+              <div style="text-align:right">
+                <div class="proj-cost-month mono">R$ 550</div>
+                <div class="proj-cost-day mono">R$ 18,33 / dia</div>
+              </div>
+            </div>
+            <div class="proj-card">
+              <div>
+                <div class="proj-vol">10.000 consultas/mês</div>
+              </div>
+              <div style="text-align:right">
+                <div class="proj-cost-month mono">R$ 1.100</div>
+                <div class="proj-cost-day mono">R$ 36,66 / dia</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-chart-wrap">
+            <p class="proj-chart-title">Curva de custo mensal (R$)</p>
+            <svg id="line-chart" viewBox="0 0 340 220" width="100%" preserveAspectRatio="xMidYMid meet"
+                 role="img" aria-label="Gráfico de linha mostrando crescimento linear de custos por volume">
+              <title>Projeção de Custos Mensais</title>
+
+              <!-- Grid -->
+              <line x1="50" y1="20" x2="50"  y2="185" stroke="#2A2E33" stroke-width="1"/>
+              <line x1="50" y1="185" x2="330" y2="185" stroke="#2A2E33" stroke-width="1"/>
+              <line x1="50" y1="80"  x2="330" y2="80"  stroke="#2A2E33" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="50" y1="132" x2="330" y2="132" stroke="#2A2E33" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+              <!-- Y labels -->
+              <text x="44" y="189" text-anchor="end" font-family="DM Mono" font-size="9" fill="#4A4F58">0</text>
+              <text x="44" y="136" text-anchor="end" font-family="DM Mono" font-size="9" fill="#4A4F58">550</text>
+              <text x="44" y="84"  text-anchor="end" font-family="DM Mono" font-size="9" fill="#4A4F58">1.100</text>
+              <text x="44" y="25"  text-anchor="end" font-family="DM Mono" font-size="9" fill="#4A4F58">R$</text>
+
+              <!-- X labels -->
+              <text x="100" y="198" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#4A4F58">1k</text>
+              <text x="215" y="198" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#4A4F58">5k</text>
+              <text x="310" y="198" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#4A4F58">10k</text>
+
+              <!-- Points: (100,176) = 1k→R$110  (215,132) = 5k→R$550  (310,80) = 10k→R$1100 -->
+              <!-- Y scale: 185 = 0, 80 = 1100. Range=105px for R$1100. 1px = R$10.47 -->
+              <!-- 110→ 185 - (110/1100)*105 = 185-10.5 = 174.5 ≈ 175 -->
+              <!-- 550→ 185 - (550/1100)*105 = 185-52.5 = 132.5 ≈ 132 -->
+              <!-- 1100→ 185 - (1100/1100)*105 = 185-105 = 80 -->
+
+              <polyline class="line-path" id="proj-line"
+                points="100,175 215,132 310,80"
+                fill="none" stroke="#C9A84C" stroke-width="2" stroke-linejoin="round"/>
+
+              <!-- Area fill -->
+              <polygon points="100,175 215,132 310,80 310,185 100,185"
+                fill="url(#areaGrad)" opacity="0.12"/>
+
+              <defs>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#C9A84C"/>
+                  <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Dots -->
+              <circle cx="100" cy="175" r="4" fill="#C9A84C" opacity="0"/>
+              <circle cx="215" cy="132" r="4" fill="#C9A84C" opacity="0"/>
+              <circle cx="310" cy="80"  r="4" fill="#C9A84C" opacity="0"/>
+
+              <!-- Dot labels -->
+              <text x="100" y="168" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#C9A84C" opacity="0">R$ 110</text>
+              <text x="215" y="125" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#C9A84C" opacity="0">R$ 550</text>
+              <text x="310" y="73"  text-anchor="middle" font-family="DM Mono" font-size="8" fill="#C9A84C" opacity="0">R$ 1.100</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+      <div class="container">
+        <div class="cta-wrap">
+          <p class="label" style="margin-bottom:1.5rem;">Conclusão</p>
+          <h2 class="section-title" style="text-align:center">ChatBots Jurídicos:<br>Viáveis e Escaláveis</h2>
+
+          <blockquote class="cta-callout">
+            "Para <strong>10.000 consultas mensais</strong>, o custo operacional total
+            é de R$ 1.100 — menos de R$ 37 por dia. O custo por processo
+            é inferior a um café."
+          </blockquote>
+
+          <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:2rem; line-height:1.7;">
+            A combinação do modelo GPT&#8209;5.4 mini com Context Caching da OpenAI torna
+            a automação jurídica economicamente acessível a escritórios de qualquer porte —
+            com custos previsíveis e linearmente escaláveis.
+          </p>
+
+          <a href="relatorio_custos_operacionais_chatbot.pdf" class="btn-primary" target="_blank" rel="noopener">
+            Baixar Relatório Completo
+          </a>
+
+          <p class="cta-note">Análise baseada em 6 traces reais de produção · GPT-5.4 mini · 2025</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="footer-brand">§ ChatBot Jurídico — Análise de Custos Operacionais</span>
+      <span class="footer-note">R$ 4,97 / USD · Modelo GPT-5.4 mini</span>
+    </div>
+  </footer>
+
+  <script>
+    // === IntersectionObserver helper ===
+    function onVisible(el, cb, threshold = 0.25) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { cb(e.target); obs.unobserve(e.target); } });
+      }, { threshold });
+      obs.observe(el);
+    }
+
+    // === Counter animation ===
+    function animateCounter(el) {
+      const target   = parseFloat(el.dataset.target);
+      const prefix   = el.dataset.prefix  || '';
+      const suffix   = el.dataset.suffix  || '';
+      const decimals = parseInt(el.dataset.decimals) || 0;
+      const duration = 1400;
+      const start    = performance.now();
+      const update   = (now) => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = (eased * target).toFixed(decimals).replace('.', ',');
+        el.textContent = prefix + val + suffix;
+        if (p < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    // Trigger counters when metrics section is visible
+    const metricsSection = document.querySelector('#metrics');
+    if (metricsSection) {
+      onVisible(metricsSection, () => {
+        document.querySelectorAll('[data-target]').forEach(el => animateCounter(el));
+      }, 0.3);
+    }
+
+    // === Bar chart animation ===
+    const barChart = document.querySelector('#breakdown .chart-wrap');
+    if (barChart) {
+      onVisible(barChart, () => {
+        const bars = barChart.querySelectorAll('.bar-rect');
+        bars.forEach((bar, i) => {
+          const targetW = parseFloat(bar.dataset.w);
+          setTimeout(() => {
+            bar.setAttribute('width', targetW);
+          }, i * 130);
+        });
+        // Show value labels after bars animate
+        setTimeout(() => {
+          const vals = barChart.querySelector('#bar-values');
+          if (vals) vals.style.opacity = '1';
+        }, 900);
+      }, 0.2);
+    }
+
+    // === Token bars animation ===
+    const tokenBars = document.querySelector('#token-bars');
+    if (tokenBars) {
+      onVisible(tokenBars, () => {
+        tokenBars.querySelectorAll('.token-bar').forEach((bar, i) => {
+          setTimeout(() => bar.classList.add('animated'), i * 200);
+        });
+      }, 0.4);
+    }
+
+    // === Line chart animation ===
+    const lineChart = document.querySelector('#line-chart');
+    if (lineChart) {
+      onVisible(lineChart, () => {
+        const path = lineChart.querySelector('.line-path');
+        if (path) {
+          const len = path.getTotalLength ? path.getTotalLength() : 500;
+          path.style.strokeDasharray  = len;
+          path.style.strokeDashoffset = len;
+          path.classList.add('animated');
+        }
+        // Reveal dots and labels
+        setTimeout(() => {
+          lineChart.querySelectorAll('circle, text[opacity="0"]').forEach((el, i) => {
+            setTimeout(() => el.setAttribute('opacity', '1'), i * 120);
+          });
+        }, 900);
+      }, 0.3);
+    }
+
+    // === Active nav link highlight ===
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => navObs.observe(s));
+  </script>
+
+</body>
+</html>

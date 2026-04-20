@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bitcoin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header span { font-size: 0.85rem; color: #8b949e; margin-top: 4px; }
+
+    .btc-icon {
+      width: 40px; height: 40px;
+      background: #f7931a;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.1rem; color: #fff;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card .label { font-size: 0.78rem; color: #8b949e; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .card .value { font-size: 1.5rem; font-weight: 700; }
+    .card .value.up   { color: #3fb950; }
+    .card .value.down { color: #f85149; }
+
+    .section { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    .section h2 { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #c9d1d9; }
+
+    .period-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .period-selector button {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+
+    .period-selector button:hover   { background: #30363d; }
+    .period-selector button.active  { background: #f7931a; border-color: #f7931a; color: #fff; font-weight: 600; }
+
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .date-range input[type="date"] {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .date-range span { font-size: 0.85rem; color: #8b949e; }
+
+    .date-range button {
+      background: #238636;
+      border: none;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .date-range button:hover { background: #2ea043; }
+
+    .chart-wrap { position: relative; height: 260px; }
+
+    .loading {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: #161b22; border-radius: 8px;
+      font-size: 0.9rem; color: #8b949e;
+    }
+
+    .error-msg { color: #f85149; font-size: 0.85rem; margin-top: 8px; }
+
+    footer { text-align: center; font-size: 0.75rem; color: #8b949e; margin-top: 16px; }
+    footer a { color: #58a6ff; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="btc-icon">₿</div>
+  <div>
+    <h1>Bitcoin Dashboard</h1>
+    <span id="last-update">Carregando dados...</span>
+  </div>
+</header>
+
+<!-- Cards de resumo -->
+<div class="cards">
+  <div class="card">
+    <div class="label">Preço atual</div>
+    <div class="value" id="card-price">—</div>
+  </div>
+  <div class="card">
+    <div class="label">Variação 24h</div>
+    <div class="value" id="card-change">—</div>
+  </div>
+  <div class="card">
+    <div class="label">Market Cap</div>
+    <div class="value" id="card-mcap">—</div>
+  </div>
+  <div class="card">
+    <div class="label">Volume 24h</div>
+    <div class="value" id="card-volume">—</div>
+  </div>
+</div>
+
+<!-- Gráfico principal com seletor -->
+<div class="section">
+  <h2>Histórico de Preço</h2>
+
+  <div class="period-selector">
+    <button class="active" data-days="7">7D</button>
+    <button data-days="30">30D</button>
+    <button data-days="90">90D</button>
+    <button data-days="365">1A</button>
+
+    <div class="date-range">
+      <span>ou:</span>
+      <input type="date" id="date-from" />
+      <span>até</span>
+      <input type="date" id="date-to" />
+      <button id="btn-range">Buscar</button>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="loading" id="loading-main">Carregando gráfico...</div>
+    <canvas id="chart-main"></canvas>
+  </div>
+  <p class="error-msg" id="error-main"></p>
+</div>
+
+<!-- Gráfico anual fixo -->
+<div class="section">
+  <h2>Variação Anual (365 dias)</h2>
+  <div class="chart-wrap">
+    <div class="loading" id="loading-annual">Carregando gráfico...</div>
+    <canvas id="chart-annual"></canvas>
+  </div>
+  <p class="error-msg" id="error-annual"></p>
+</div>
+
+<footer>
+  Dados fornecidos por <a href="https://www.coingecko.com" target="_blank">CoinGecko</a> · Atualização automática a cada 60s
+</footer>
+
+<script>
+  const API = 'https://api.coingecko.com/api/v3';
+  const cache = {};
+
+  async function apiFetch(url) {
+    const now = Date.now();
+    if (cache[url] && now - cache[url].ts < 60000) return cache[url].data;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Erro ${res.status}`);
+    const data = await res.json();
+    cache[url] = { data, ts: now };
+    return data;
+  }
+
+  function formatUSD(n) {
+    return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  }
+
+  function formatBig(n) {
+    if (n >= 1e12) return `$${(n / 1e12).toFixed(2)}T`;
+    if (n >= 1e9)  return `$${(n / 1e9).toFixed(2)}B`;
+    return formatUSD(n);
+  }
+
+  async function fetchCurrentPrice() {
+    try {
+      const url = `${API}/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true`;
+      const d = await apiFetch(url);
+      const btc = d.bitcoin;
+
+      document.getElementById('card-price').textContent = formatUSD(btc.usd);
+
+      const changeEl = document.getElementById('card-change');
+      const change = btc.usd_24h_change;
+      changeEl.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+      changeEl.className = `value ${change >= 0 ? 'up' : 'down'}`;
+
+      document.getElementById('card-mcap').textContent   = formatBig(btc.usd_market_cap);
+      document.getElementById('card-volume').textContent = formatBig(btc.usd_24h_vol);
+
+      const now = new Date().toLocaleString('pt-BR');
+      document.getElementById('last-update').textContent = `Última atualização: ${now}`;
+    } catch (e) {
+      document.getElementById('last-update').textContent = 'Erro ao carregar dados.';
+    }
+  }
+
+  async function fetchHistory(days) {
+    const url = `${API}/coins/bitcoin/market_chart?vs_currency=usd&days=${days}`;
+    return apiFetch(url);
+  }
+
+  async function fetchRange(from, to) {
+    const f = Math.floor(new Date(from).getTime() / 1000);
+    const t = Math.floor(new Date(to).getTime()  / 1000);
+    const url = `${API}/coins/bitcoin/market_chart/range?vs_currency=usd&from=${f}&to=${t}`;
+    return apiFetch(url);
+  }
+
+  let chartMain = null;
+
+  function renderChart(canvasId, data, label) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    const labels = data.prices.map(p => {
+      const d = new Date(p[0]);
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    });
+    const values = data.prices.map(p => p[1]);
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+    gradient.addColorStop(0, 'rgba(247,147,26,0.3)');
+    gradient.addColorStop(1, 'rgba(247,147,26,0)');
+
+    const config = {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label,
+          data: values,
+          borderColor: '#f7931a',
+          backgroundColor: gradient,
+          borderWidth: 2,
+          pointRadius: 0,
+          fill: true,
+          tension: 0.3,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              label: ctx => ` ${formatUSD(ctx.parsed.y)}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#8b949e', maxTicksLimit: 8, font: { size: 11 } },
+            grid:  { color: '#21262d' }
+          },
+          y: {
+            ticks: { color: '#8b949e', callback: v => formatUSD(v), font: { size: 11 } },
+            grid:  { color: '#21262d' }
+          }
+        }
+      }
+    };
+
+    if (canvasId === 'chart-main') {
+      if (chartMain) chartMain.destroy();
+      chartMain = new Chart(ctx, config);
+    } else {
+      new Chart(ctx, config);
+    }
+  }
+
+  async function loadMain(days) {
+    const loadEl  = document.getElementById('loading-main');
+    const errorEl = document.getElementById('error-main');
+    loadEl.style.display  = 'flex';
+    errorEl.textContent   = '';
+    try {
+      const data = await fetchHistory(days);
+      loadEl.style.display = 'none';
+      renderChart('chart-main', data, `Bitcoin (${days}d)`);
+    } catch (e) {
+      loadEl.style.display = 'none';
+      errorEl.textContent  = `Não foi possível carregar o gráfico: ${e.message}`;
+    }
+  }
+
+  async function loadRange(from, to) {
+    const loadEl  = document.getElementById('loading-main');
+    const errorEl = document.getElementById('error-main');
+    loadEl.style.display  = 'flex';
+    errorEl.textContent   = '';
+    try {
+      const data = await fetchRange(from, to);
+      if (!data.prices.length) throw new Error('Sem dados para o período selecionado.');
+      loadEl.style.display = 'none';
+      renderChart('chart-main', data, `Bitcoin (período customizado)`);
+    } catch (e) {
+      loadEl.style.display = 'none';
+      errorEl.textContent  = `Erro: ${e.message}`;
+    }
+  }
+
+  async function loadAnnual() {
+    const loadEl  = document.getElementById('loading-annual');
+    const errorEl = document.getElementById('error-annual');
+    try {
+      const data = await fetchHistory(365);
+      loadEl.style.display = 'none';
+      renderChart('chart-annual', data, 'Bitcoin (365d)');
+    } catch (e) {
+      loadEl.style.display = 'none';
+      errorEl.textContent  = `Erro ao carregar gráfico anual: ${e.message}`;
+    }
+  }
+
+  // Seletor de período
+  document.querySelectorAll('.period-selector button[data-days]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.period-selector button[data-days]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadMain(Number(btn.dataset.days));
+    });
+  });
+
+  // Range customizado
+  document.getElementById('btn-range').addEventListener('click', () => {
+    const from = document.getElementById('date-from').value;
+    const to   = document.getElementById('date-to').value;
+    if (!from || !to) return alert('Selecione as duas datas.');
+    if (new Date(from) >= new Date(to)) return alert('A data inicial deve ser anterior à final.');
+    document.querySelectorAll('.period-selector button[data-days]').forEach(b => b.classList.remove('active'));
+    loadRange(from, to);
+  });
+
+  // Preenche datas padrão no seletor
+  const today = new Date();
+  const weekAgo = new Date(today); weekAgo.setDate(weekAgo.getDate() - 7);
+  document.getElementById('date-to').value   = today.toISOString().slice(0,10);
+  document.getElementById('date-from').value = weekAgo.toISOString().slice(0,10);
+
+  // Inicializa
+  async function init() {
+    await fetchCurrentPrice();
+    await loadMain(7);
+    await loadAnnual();
+  }
+
+  init();
+  setInterval(fetchCurrentPrice, 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "eval_id": 2,
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Um arquivo novidades-YYYY-MM-DD.html foi criado no diretório de saída",
+      "passed": false,
+      "evidence": "Arquivo salvo como 'resumo-ia-13-04-2026.html', não seguiu o padrão novidades-YYYY-MM-DD.html"
+    },
+    {
+      "text": "O HTML contém uma seção de Destaques (🔥) com pelo menos 3 cards",
+      "passed": false,
+      "evidence": "Nenhuma seção 'Destaques' no formato especificado"
+    },
+    {
+      "text": "O HTML contém uma seção de Mais Notícias (📰)",
+      "passed": false,
+      "evidence": "Nenhuma seção 'Mais Notícias' no formato especificado"
+    },
+    {
+      "text": "Conteúdo em português brasileiro (não em inglês)",
+      "passed": true,
+      "evidence": "Conteúdo em português brasileiro"
+    },
+    {
+      "text": "O HTML usa o design dark mode especificado (background #0a0a0a)",
+      "passed": false,
+      "evidence": "#0a0a0a não encontrado — design diferente"
+    },
+    {
+      "text": "O rodapé contém timestamp de geração e fontes consultadas",
+      "passed": false,
+      "evidence": "Sem rodapé no formato especificado"
+    },
+    {
+      "text": "Tanto HN quanto TechCrunch foram consultados",
+      "passed": false,
+      "evidence": "Sem indicação de consulta às fontes específicas"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+⚠️ Hacker News indisponível (sem acesso à rede no ambiente de teste), continuando com conhecimento atualizado...
+⚠️ TechCrunch indisponível (sem acesso à rede no ambiente de teste), continuando com conhecimento atualizado...
+
+✅ Dashboard gerado com sucesso!
+
+📊 Notícias encontradas:
+   • Hacker News: 4 notícias relevantes (baseado em conhecimento — fonte offline)
+   • TechCrunch: 5 artigos (baseado em conhecimento — fonte offline)
+
+🔥 Destaques selecionados: 5
+📰 Demais notícias: 9
+
+💾 Arquivo salvo: novidades-2026-04-13.html

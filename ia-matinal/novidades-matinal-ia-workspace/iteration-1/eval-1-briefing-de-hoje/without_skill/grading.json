@@ -1,0 +1,41 @@
+{
+  "eval_id": 1,
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Um arquivo novidades-YYYY-MM-DD.html foi criado no diretório de saída",
+      "passed": false,
+      "evidence": "Arquivo salvo como 'briefing.html', não seguiu o padrão novidades-YYYY-MM-DD.html"
+    },
+    {
+      "text": "O HTML contém uma seção de Destaques (🔥) com pelo menos 3 cards",
+      "passed": false,
+      "evidence": "Nenhuma seção 'Destaques' encontrada no HTML gerado"
+    },
+    {
+      "text": "O HTML contém uma seção de Mais Notícias (📰)",
+      "passed": false,
+      "evidence": "Nenhuma seção 'Mais Notícias' encontrada no HTML gerado"
+    },
+    {
+      "text": "Conteúdo em português brasileiro (não em inglês)",
+      "passed": true,
+      "evidence": "Conteúdo em português brasileiro presente"
+    },
+    {
+      "text": "O HTML usa o design dark mode especificado (background #0a0a0a)",
+      "passed": false,
+      "evidence": "#0a0a0a não encontrado no arquivo — design diferente do especificado"
+    },
+    {
+      "text": "Os cards têm links clicáveis apontando para as URLs originais",
+      "passed": false,
+      "evidence": "Sem links http para fontes originais"
+    },
+    {
+      "text": "Resumo com contagem de notícias por fonte exibido no terminal",
+      "passed": false,
+      "evidence": "terminal_output.txt não contém contagem por fonte no formato esperado"
+    }
+  ]
+}

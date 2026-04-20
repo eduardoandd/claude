@@ -1,0 +1,35 @@
+{
+  "eval_id": 1,
+  "eval_name": "briefing-de-hoje",
+  "prompt": "briefing de hoje",
+  "assertions": [
+    {
+      "id": "html_file_created",
+      "description": "Um arquivo novidades-YYYY-MM-DD.html foi criado no diretório de saída"
+    },
+    {
+      "id": "has_destaques_section",
+      "description": "O HTML contém uma seção de Destaques (🔥) com pelo menos 3 cards"
+    },
+    {
+      "id": "has_mais_noticias_section",
+      "description": "O HTML contém uma seção de Mais Notícias (📰)"
+    },
+    {
+      "id": "content_in_portuguese",
+      "description": "Títulos e resumos das notícias estão em português brasileiro (não em inglês)"
+    },
+    {
+      "id": "dark_mode_design",
+      "description": "O HTML usa o design dark mode especificado (background #0a0a0a, cards #111111)"
+    },
+    {
+      "id": "links_to_originals",
+      "description": "Os cards têm links clicáveis apontando para as URLs originais das notícias"
+    },
+    {
+      "id": "terminal_summary_shown",
+      "description": "Um resumo com contagem de notícias por fonte foi exibido no terminal"
+    }
+  ]
+}

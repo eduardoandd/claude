@@ -1,0 +1,55 @@
+PROCESSO DE DESENVOLVIMENTO COM CLAUDE CODE
+
+
+FASE 1 - PREPARAÇÃO
+
+	* Criar o PRD: um documento que fala oq eu quero construir, qual dor que eu to resolvendo, qual é a solução, features, tecnologias que tenho interesse em fazer, 			     relação aos usuários,ideias de design.
+
+
+	* Gerar CLAUDE.md: documento gerado baseado no PRD.
+
+
+	* versionamento: .env e .gitignore
+
+
+	* primeiro commit
+
+
+
+FASE 2 - Planejamento
+
+	* Gerar PLAN.md: milestone
+
+	* Revisar o PLAN.md
+
+	* Commitar o PLAN.md
+
+	
+
+FASE 3 - LOOP POR MILESTONE
+
+	*  Reset de contexto: /reset  (CLAUDE.md recarrega)
+	* Planejar + branch: Linha principal do projeto
+	* Execução + commits: ?
+	* Pré-teste: Revisar tudo oq ele fez
+	* Teste humano: testar
+	* Pull Request + merge: juntar na branch principal
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

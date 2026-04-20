@@ -1,0 +1,31 @@
+{
+  "eval_id": 2,
+  "eval_name": "novidades-resumo",
+  "prompt": "quero saber as novidades de IA de hoje, me dá um resumo do que aconteceu",
+  "assertions": [
+    {
+      "id": "html_file_created",
+      "description": "Um arquivo novidades-YYYY-MM-DD.html foi criado no diretório de saída"
+    },
+    {
+      "id": "has_destaques_section",
+      "description": "O HTML contém uma seção de Destaques (🔥) com pelo menos 3 cards"
+    },
+    {
+      "id": "has_mais_noticias_section",
+      "description": "O HTML contém uma seção de Mais Notícias (📰)"
+    },
+    {
+      "id": "content_in_portuguese",
+      "description": "Títulos e resumos das notícias estão em português brasileiro (não em inglês)"
+    },
+    {
+      "id": "has_footer_with_sources",
+      "description": "O rodapé contém timestamp de geração e fontes consultadas"
+    },
+    {
+      "id": "both_sources_attempted",
+      "description": "O terminal indica que tanto HN quanto TechCrunch foram consultados"
+    }
+  ]
+}

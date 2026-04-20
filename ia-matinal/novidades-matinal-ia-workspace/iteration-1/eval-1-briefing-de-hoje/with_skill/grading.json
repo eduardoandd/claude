@@ -1,0 +1,41 @@
+{
+  "eval_id": 1,
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Um arquivo novidades-YYYY-MM-DD.html foi criado no diretório de saída",
+      "passed": true,
+      "evidence": "Arquivo novidades-2026-04-13.html encontrado (11.5KB)"
+    },
+    {
+      "text": "O HTML contém uma seção de Destaques (🔥) com pelo menos 3 cards",
+      "passed": true,
+      "evidence": "Seção Destaques presente no HTML"
+    },
+    {
+      "text": "O HTML contém uma seção de Mais Notícias (📰)",
+      "passed": true,
+      "evidence": "Seção Mais Notícias presente no HTML"
+    },
+    {
+      "text": "Conteúdo em português brasileiro (não em inglês)",
+      "passed": true,
+      "evidence": "HTML com lang=pt-BR e conteúdo em português"
+    },
+    {
+      "text": "O HTML usa o design dark mode especificado (background #0a0a0a)",
+      "passed": true,
+      "evidence": "#0a0a0a encontrado no CSS do arquivo"
+    },
+    {
+      "text": "Os cards têm links clicáveis apontando para as URLs originais",
+      "passed": true,
+      "evidence": "href com URLs http encontrados nos cards"
+    },
+    {
+      "text": "Resumo com contagem de notícias por fonte exibido no terminal",
+      "passed": true,
+      "evidence": "terminal_output.txt contém contagem por fonte (HN: 4, TechCrunch: 5)"
+    }
+  ]
+}

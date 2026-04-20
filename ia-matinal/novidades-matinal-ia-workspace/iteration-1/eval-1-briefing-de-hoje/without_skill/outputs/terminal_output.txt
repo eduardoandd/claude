@@ -1,0 +1,90 @@
+============================================================
+  IA MATINAL — BRIEFING DE HOJE
+  Domingo, 13 de Abril de 2026
+============================================================
+
+NOTA: Este briefing foi gerado sem acesso a internet em tempo real.
+Conteúdo baseado em conhecimento base até Agosto/2025.
+
+------------------------------------------------------------
+MODELOS & LANCAMENTOS
+------------------------------------------------------------
+
+[Anthropic] Claude 3.5 / familia Claude 3
+  -> Foco em raciocinio prolongado, agentes e uso de ferramentas.
+     Sonnet e Opus lideram benchmarks de codificacao e analise.
+
+[OpenAI] GPT-4o e serie "o" (o1, o3)
+  -> Raciocinio em cadeia nativo. Forte adocao em producao
+     para matematica, ciencias e resolucao de problemas complexos.
+
+[Google DeepMind] Gemini 2.0 Flash / Ultra
+  -> Janela de 1M tokens, processamento nativo de audio,
+     video e imagem. Integrado ao ecossistema Google.
+
+[Meta AI] Llama 3.x (open source)
+  -> Modelos 8B, 70B e 405B. Lider em codigo aberto.
+     Permite implantacao local e democratiza acesso a IA.
+
+------------------------------------------------------------
+AGENTES & AUTOMACAO
+------------------------------------------------------------
+
+[Tendencia 2026] Agentes autonomos — computer use e orquestracao
+  -> Modelos controlam browsers, executam codigo, gerenciam
+     arquivos e orquestram fluxos multi-agente. Foco em
+     confiabilidade e supervisao humana.
+
+[Anthropic] MCP — Model Context Protocol
+  -> Padrao aberto emergente para conectar LLMs a ferramentas
+     externas (bancos de dados, APIs, servicos).
+
+[Mercado] Coding com IA: Cursor, GitHub Copilot, Claude Code
+  -> +30% do codigo novo em grandes empresas gerado por IA.
+     Ferramentas de dev assistidas por IA em plena expansao.
+
+------------------------------------------------------------
+PESQUISA & CIENCIA
+------------------------------------------------------------
+
+[DeepMind] AlphaFold 3
+  -> Previsao de estruturas para DNA, RNA e moleculas pequenas.
+     Parceiras farmaceuticas aceleram descoberta de medicamentos.
+
+[Anthropic / Comunidade] Interpretabilidade mecanica
+  -> Identificacao de circuitos internos em transformers.
+     Objetivo: modelos mais previsiveis, seguros e alinhados.
+
+[Labs] Geracao de video: Sora, Runway, Kling
+  -> Qualidade cinematica em clips curtos.
+     Debates sobre direitos autorais e desinformacao crescem.
+
+------------------------------------------------------------
+REGULAMENTACAO & SOCIEDADE
+------------------------------------------------------------
+
+[EU] AI Act em vigor
+  -> Sistemas de alto risco precisam de documentacao,
+     auditorias e supervisao humana obrigatoria.
+
+[Global] Debate sobre AGI
+  -> Dario Amodei e Sam Altman: AGI pode surgir nesta decada.
+     Especialistas pedem cautela e mais pesquisa de seguranca.
+
+[Mercado de Trabalho] IA e empregos
+  -> Automacao elimina funcoes repetitivas; dispara demanda
+     por profissionais de IA, prompts e automacao (WEF/McKinsey).
+
+------------------------------------------------------------
+DICA DO DIA
+------------------------------------------------------------
+
+Experimente raciocinio estendido (extended thinking):
+  Modelos como Claude, o1 e o3 resolvem problemas complexos
+  de forma mais confıavel com "thinking" habilitado.
+  Tente: matematica avancada, analise critica, codigo difıcil.
+
+============================================================
+Arquivo HTML completo salvo em: briefing.html
+Gerado por: Claude (sem acesso a internet em tempo real)
+============================================================

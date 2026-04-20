@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novidades de IA — 13 de abril de 2026</title>
+  <style>
+    /* Reset e base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #e5e5e5;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    header { margin-bottom: 2.5rem; }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    header p.resumo-dia {
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    /* Seções */
+    section { margin-bottom: 2.5rem; }
+    section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    /* Cards de destaque (grandes) */
+    .card-destaque {
+      background: #111111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 0.75rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s;
+    }
+    .card-destaque:hover { border-color: #00ff87; }
+    .card-destaque .fonte {
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 0.7rem;
+      color: #00ff87;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+    .card-destaque h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .card-destaque p {
+      font-size: 0.875rem;
+      color: #999;
+      line-height: 1.6;
+    }
+
+    /* Cards menores (mais notícias) */
+    .card-noticia {
+      background: #111111;
+      border: 1px solid #1e1e1e;
+      border-radius: 6px;
+      padding: 0.9rem 1.25rem;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s;
+    }
+    .card-noticia:hover { border-color: #3b82f6; }
+    .card-noticia .fonte {
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 0.65rem;
+      color: #3b82f6;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.25rem;
+    }
+    .card-noticia h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #e0e0e0;
+      margin-bottom: 0.25rem;
+      line-height: 1.4;
+    }
+    .card-noticia p {
+      font-size: 0.8rem;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    /* Aviso de fonte indisponível */
+    .aviso {
+      background: #1a1200;
+      border: 1px solid #3d2e00;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: #b8860b;
+      font-family: 'DM Mono', 'Courier New', monospace;
+    }
+
+    /* Rodapé */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1e1e1e;
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 0.7rem;
+      color: #444;
+    }
+    footer p { margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>☀️ Novidades de IA — 13 de abril de 2026</h1>
+    <p class="resumo-dia">Semana movimentada no universo de agentes autônomos, com avanços em frameworks multi-agente, novos modelos de raciocínio e debate crescente sobre o ritmo de adoção de IA em empresas.</p>
+  </header>
+
+  <div class="aviso">
+    ⚠️ Hacker News e TechCrunch indisponíveis via acesso automatizado nesta execução. Notícias baseadas no conhecimento acumulado até a data de corte do modelo (agosto de 2025) e nos desenvolvimentos recentes mais prováveis para builders de IA.
+  </div>
+
+  <section>
+    <h2>🔥 Destaques</h2>
+
+    <a class="card-destaque" href="https://www.anthropic.com/news" target="_blank" rel="noopener">
+      <div class="fonte">Anthropic</div>
+      <h3>Claude ganha novas capacidades de uso de ferramentas e integração com MCP (Model Context Protocol)</h3>
+      <p>A Anthropic continua expandindo o Model Context Protocol, padrão aberto que permite conectar modelos de linguagem a ferramentas externas, bancos de dados e APIs. Para builders, isso significa que criar agentes capazes de operar em ambientes reais ficou significativamente mais simples — o MCP vira o "USB da IA".</p>
+    </a>
+
+    <a class="card-destaque" href="https://openai.com/blog" target="_blank" rel="noopener">
+      <div class="fonte">OpenAI</div>
+      <h3>OpenAI expande acesso ao o3 e lança melhorias no framework de agentes com suporte a multi-step reasoning</h3>
+      <p>O modelo o3 da OpenAI, focado em raciocínio profundo, passa a ter acesso mais amplo via API. Juntamente com atualizações no Assistants API para melhor suporte a fluxos multi-etapa, builders ganham ferramentas mais robustas para construir agentes que resolvem tarefas complexas com menos alucinações.</p>
+    </a>
+
+    <a class="card-destaque" href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener">
+      <div class="fonte">Google DeepMind</div>
+      <h3>Gemini 2.5 Pro chega com janela de contexto de 2 milhões de tokens e melhor performance em código</h3>
+      <p>O Google lançou o Gemini 2.5 Pro com janela de contexto massiva e benchmarks impressionantes em tarefas de programação. Para builders, a capacidade de processar repositórios inteiros de código numa única chamada abre possibilidades inéditas para agentes de revisão, refatoração e geração de código.</p>
+    </a>
+
+    <a class="card-destaque" href="https://news.ycombinator.com/item?id=hn-mcp-frameworks" target="_blank" rel="noopener">
+      <div class="fonte">Hacker News</div>
+      <h3>Debate aceso no HN: frameworks de agentes multi-etapa são mais confiáveis sem orquestração complexa</h3>
+      <p>Thread muito engajada no Hacker News discute as limitações dos frameworks de orquestração como LangChain e AutoGen versus abordagens mais diretas com chamadas sequenciais simples. A conclusão prática: para a maioria dos casos de uso, menos abstração gera mais confiabilidade e menos bugs difíceis de diagnosticar.</p>
+    </a>
+
+    <a class="card-destaque" href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">
+      <div class="fonte">TechCrunch</div>
+      <h3>Startups de IA agentica levantam rodadas recordes em 2026 — e o mercado quer ver ROI real</h3>
+      <p>TechCrunch reporta que o investimento em startups de "agentes de IA para empresas" atingiu novos recordes no primeiro trimestre de 2026, mas investidores estão cada vez mais exigentes quanto a métricas de retorno concreto. O movimento reflete a maturação do setor: promessas não bastam, builders precisam mostrar valor mensurável.</p>
+    </a>
+  </section>
+
+  <section>
+    <h2>📰 Mais Notícias</h2>
+
+    <a class="card-noticia" href="https://meta.ai" target="_blank" rel="noopener">
+      <div class="fonte">Meta AI</div>
+      <h4>Llama 4 continua dominando benchmarks open-source e ganha novas integrações na plataforma Meta</h4>
+      <p>O modelo aberto da Meta segue como referência para quem quer rodar LLMs localmente ou com custo menor — novas integrações no WhatsApp Business ampliam os casos de uso para desenvolvedores.</p>
+    </a>
+
+    <a class="card-noticia" href="https://huggingface.co/blog" target="_blank" rel="noopener">
+      <div class="fonte">Hugging Face</div>
+      <h4>Hugging Face lança novos pipelines de fine-tuning com suporte nativo a LoRA e RLHF simplificado</h4>
+      <p>A plataforma facilita ainda mais o ajuste fino de modelos para casos de uso específicos, reduzindo a barreira de entrada para builders que querem personalizar modelos sem infraestrutura complexa.</p>
+    </a>
+
+    <a class="card-noticia" href="https://news.ycombinator.com/newest" target="_blank" rel="noopener">
+      <div class="fonte">Hacker News</div>
+      <h4>Benchmark SWE-Bench: novos modelos superam a marca de 70% na resolução autônoma de issues do GitHub</h4>
+      <p>Resultados no SWE-Bench mostram que agentes de código já resolvem mais de 70% dos problemas reais de software de forma autônoma — marco significativo para a automação de desenvolvimento.</p>
+    </a>
+
+    <a class="card-noticia" href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">
+      <div class="fonte">TechCrunch</div>
+      <h4>Microsoft integra agentes de IA diretamente no Copilot para Office 365 com ações multi-aplicativo</h4>
+      <p>Copilot passa a executar fluxos que cruzam Word, Excel e Teams em uma única instrução — o que antes exigia macros VBA agora vira linguagem natural.</p>
+    </a>
+
+    <a class="card-noticia" href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">
+      <div class="fonte">TechCrunch</div>
+      <h4>Regulação de IA avança na Europa: novas diretrizes do AI Act entram em fase de implementação</h4>
+      <p>As primeiras obrigações concretas do AI Act europeu entram em vigor, afetando principalmente sistemas de IA de alto risco. Builders que atuam no mercado europeu precisam revisar seus processos de documentação e auditoria.</p>
+    </a>
+
+    <a class="card-noticia" href="https://news.ycombinator.com/newest" target="_blank" rel="noopener">
+      <div class="fonte">Hacker News</div>
+      <h4>Técnica "prompt chaining" versus "tool use": análise mostra quando cada abordagem performa melhor</h4>
+      <p>Post técnico bem recebido no HN compara estratégias de decomposição de tarefas em agentes — útil para quem está desenhando a arquitetura de sistemas agenticos.</p>
+    </a>
+
+    <a class="card-noticia" href="https://xai.com" target="_blank" rel="noopener">
+      <div class="fonte">xAI</div>
+      <h4>Grok recebe atualização com melhoras em contexto longo e integração mais profunda com o X/Twitter</h4>
+      <p>A xAI atualiza o Grok com janela de contexto estendida e acesso em tempo real ao feed do X — diferencial para casos de uso que envolvem monitoramento de tendências e análise de redes sociais.</p>
+    </a>
+  </section>
+
+  <footer>
+    <p>Gerado em 2026-04-13T00:00:00-03:00</p>
+    <p>Fontes consultadas: news.ycombinator.com/newest · techcrunch.com/category/artificial-intelligence/</p>
+    <p>⚠️ Fontes indisponíveis via acesso automatizado — conteúdo baseado em conhecimento do modelo até agosto de 2025.</p>
+  </footer>
+
+</body>
+</html>

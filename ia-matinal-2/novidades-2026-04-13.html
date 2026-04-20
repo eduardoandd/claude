@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novidades de IA — 13 de abril de 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #e5e5e5;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* CABEÇALHO */
+    header {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid #1e1e1e;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    header .subtitulo {
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    header .data {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: #555;
+      margin-top: 0.75rem;
+    }
+
+    /* SEÇÕES */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+      margin-bottom: 1.25rem;
+    }
+
+    /* CARDS DESTAQUES */
+    .cards-destaques {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    a.card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #111111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem;
+      transition: background 0.15s ease;
+      position: relative;
+    }
+
+    a.card:hover {
+      background: #161616;
+    }
+
+    a.card.destaque {
+      border-left: 3px solid #00ff87;
+    }
+
+    a.card.normal {
+      border-left: 3px solid #3b82f6;
+      padding: 0.9rem 1.2rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      background: #1e1e1e;
+      color: #888;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #2a2a2a;
+    }
+
+    a.card.destaque h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.55rem;
+      line-height: 1.4;
+    }
+
+    a.card.destaque p {
+      font-size: 0.875rem;
+      color: #aaaaaa;
+      line-height: 1.65;
+    }
+
+    /* CARDS COMPACTOS */
+    .cards-noticias {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 600px) {
+      .cards-noticias {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    a.card.normal h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e5e5e5;
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
+    }
+
+    a.card.normal p {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    .acento-destaque { color: #00ff87; }
+    .acento-normal   { color: #3b82f6; }
+
+    /* RODAPÉ */
+    footer {
+      border-top: 1px solid #1e1e1e;
+      padding-top: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: #444;
+      line-height: 1.8;
+    }
+
+    footer a {
+      color: #555;
+      text-decoration: none;
+    }
+    footer a:hover { color: #888; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>☀️ Novidades de IA — 13 de abril de 2026</h1>
+    <p class="subtitulo">OpenAI em modo aquisição, Microsoft acelera agentes e Anthropic entra no setor bancário</p>
+    <p class="data">Gerado em 13/04/2026 · Fontes: Hacker News · TechCrunch</p>
+  </header>
+
+  <!-- DESTAQUES -->
+  <section>
+    <p class="section-title">🔥 Destaques</p>
+    <div class="cards-destaques">
+
+      <a class="card destaque" href="https://techcrunch.com/2026/04/13/openai-has-bought-ai-personal-finance-startup-hiro/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <span class="badge">TechCrunch</span>
+        </div>
+        <h2>OpenAI adquire startup de finanças pessoais com IA, a Hiro — agentes financeiros são o próximo passo?</h2>
+        <p>A OpenAI comprou a Hiro, startup especializada em finanças pessoais com IA. O movimento sugere que a empresa quer expandir seus agentes para o setor financeiro, potencialmente criando assistentes que gerem e executem planos financeiros diretamente para os usuários.</p>
+      </a>
+
+      <a class="card destaque" href="https://techcrunch.com/2026/04/13/microsoft-is-working-on-yet-another-openclaw-like-agent/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <span class="badge">TechCrunch</span>
+        </div>
+        <h2>Microsoft desenvolve mais um agente no estilo OpenClaw</h2>
+        <p>A Microsoft está construindo um novo agente autônomo inspirado no modelo OpenClaw. A empresa continua apostando forte em agentes de IA para automação empresarial, adicionando mais uma peça em sua crescente linha de produtos agenticos integrados ao ecossistema Azure e Microsoft 365.</p>
+      </a>
+
+      <a class="card destaque" href="https://techcrunch.com/2026/04/12/trump-officials-may-be-encouraging-banks-to-test-anthropics-mythos-model/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <span class="badge">TechCrunch</span>
+        </div>
+        <h2>Governo dos EUA estaria incentivando bancos a testar o modelo Mythos, da Anthropic</h2>
+        <p>Funcionários do governo Trump estariam encorajando instituições financeiras a experimentar o Mythos, novo modelo da Anthropic. O movimento indica uma potencial adoção institucional em larga escala da IA da Anthropic no setor bancário americano.</p>
+      </a>
+
+      <a class="card destaque" href="https://arstechnica.com/ai/2026/04/meta-spins-up-ai-version-of-mark-zuckerberg-to-engage-with-employees/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <span class="badge">Hacker News</span>
+        </div>
+        <h2>Meta cria versão de IA de Mark Zuckerberg para se comunicar com funcionários</h2>
+        <p>A Meta desenvolveu um avatar de IA baseado em Mark Zuckerberg para interagir internamente com seus funcionários. A iniciativa levanta questões sobre o papel dos agentes de IA na comunicação corporativa e os limites entre autenticidade e automação no ambiente de trabalho.</p>
+      </a>
+
+      <a class="card destaque" href="https://techcrunch.com/2026/04/13/stanford-report-highlights-growing-disconnect-between-ai-insiders-and-everyone-else/" target="_blank" rel="noopener">
+        <div class="card-header">
+          <span class="badge">TechCrunch</span>
+        </div>
+        <h2>Relatório de Stanford aponta crescente desconexão entre especialistas em IA e o resto do mundo</h2>
+        <p>Pesquisa da Universidade de Stanford revela que a percepção sobre IA entre insiders da área diverge cada vez mais da visão do público geral. O relatório alerta que essa lacuna pode dificultar políticas, regulações e a adoção responsável da tecnologia.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- MAIS NOTÍCIAS -->
+  <section>
+    <p class="section-title">📰 Mais Notícias</p>
+    <div class="cards-noticias">
+
+      <a class="card normal" href="https://techcrunch.com/2026/04/13/vercel-ceo-guillermo-rauch-signals-ipo-readiness-as-ai-agents-fuel-revenue-surge/" target="_blank" rel="noopener">
+        <div class="card-header"><span class="badge">TechCrunch</span></div>
+        <h3>CEO da Vercel sinaliza abertura de capital impulsionada por agentes de IA</h3>
+        <p>Guillermo Rauch indica que a Vercel está pronta para um IPO, com receita crescendo graças à adoção de agentes de IA na plataforma.</p>
+      </a>
+
+      <a class="card normal" href="https://venturebeat.com/orchestration/agentic-coding-at-enterprise-scale-demands-spec-driven-development" target="_blank" rel="noopener">
+        <div class="card-header"><span class="badge">Hacker News</span></div>
+        <h3>Programação agêntica em escala empresarial exige desenvolvimento orientado a especificações</h3>
+        <p>Análise aponta que times que adotam IA para código em larga escala precisam de specs detalhadas — não basta prompt engineering genérico.</p>
+      </a>
+
+      <a class="card normal" href="https://matrix-game-v3.github.io/" target="_blank" rel="noopener">
+        <div class="card-header"><span class="badge">Hacker News</span></div>
+        <h3>Matrix-Game 3.0: modelo de mundo interativo em tempo real e streaming</h3>
+        <p>Nova versão do Matrix-Game traz simulação de mundo por IA em tempo real com suporte a streaming, ampliando possibilidades para jogos e simulações.</p>
+      </a>
+
+      <a class="card normal" href="https://techcrunch.com/2026/04/13/the-largest-orbital-compute-cluster-is-open-for-business/" target="_blank" rel="noopener">
+        <div class="card-header"><span class="badge">TechCrunch</span></div>
+        <h3>Maior cluster de computação orbital entra em operação</h3>
+        <p>A Kepler Communications abre sua infraestrutura de compute em órbita para clientes — uma nova fronteira para processamento de dados de IA fora da Terra.</p>
+      </a>
+
+      <a class="card normal" href="https://www.bbiz.shop/blog" target="_blank" rel="noopener">
+        <div class="card-header"><span class="badge">Hacker News</span></div>
+        <h3>Lojas com agentes de IA: tornando produtos do Shopee encontráveis pelo ChatGPT e Perplexity</h3>
+        <p>Iniciativa mostra como e-commerces podem otimizar seus produtos para serem descobertos por agentes de IA e assistentes conversacionais.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Gerado em 13/04/2026 às 00:00 · <a href="https://news.ycombinator.com/newest" target="_blank" rel="noopener">Hacker News</a> · <a href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">TechCrunch AI</a></p>
+    <p style="margin-top:0.4rem;">HN: 30 itens coletados, 6 relevantes · TechCrunch: 7 itens coletados, 6 relevantes</p>
+  </footer>
+
+</div>
+</body>
+</html>

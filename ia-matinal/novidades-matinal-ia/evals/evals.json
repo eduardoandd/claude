@@ -1,0 +1,23 @@
+{
+  "skill_name": "novidades-matinal-ia",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "briefing de hoje",
+      "expected_output": "Um arquivo novidades-YYYY-MM-DD.html gerado no diretório atual com: cabeçalho com data em português, seção de 3-5 destaques com cards grandes, seção de mais notícias com cards menores, tudo em português brasileiro, rodapé com timestamp e fontes. O browser deve ser aberto automaticamente. O terminal deve mostrar resumo com contagem de notícias por fonte.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "quero saber as novidades de IA de hoje, me dá um resumo do que aconteceu",
+      "expected_output": "Mesmo que o eval 1: HTML gerado com dashboard completo em PT-BR, notícias das últimas 24h de HN e TechCrunch, destaques e demais notícias separados, aberto no browser automaticamente.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "ia matinal",
+      "expected_output": "Skill deve ser acionada por esta frase curta. HTML gerado com conteúdo em português, links clicáveis para as fontes originais, design dark mode conforme especificado.",
+      "files": []
+    }
+  ]
+}

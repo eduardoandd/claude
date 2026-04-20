@@ -1,0 +1,55 @@
+PASSO 1 - PREPARAÇÃO
+
+    * Mapeamento do processo: Descreve do inicio ao fim como esse processo funciona, sem claude.
+    * Gatilho: O que faz essa skils ser ativada? (trigger)
+    * Documentos e arquivos: Liste todos os materias de referência (templates, exemplos, dados, contexto)
+    * Ferramentas - Apps e serviços: Integrações externas necessárias. (MCP's, Api's, ferramentas)
+    * Entrega final: Mostre 1,3 exemplos reais de como o output deve ser. Isso é o critério de sucesso.
+
+
+    Exemplo:
+        Mapeamento do processo -> Toda semana recebo dados de vendas e monto o dash manualmente.
+        Hoje: baixo planilha, abro o excel, copio métricas, colo no template, ajusto cores, salvo.
+        Leva 2h. A skill vai replicar isso automáticamente, no mesmo padrão visual, toda vez.
+
+        Gatilho -> Envio o arquivo CSV para o claude.
+        O gatilho é upload do CSV + mensagem: "Gere o dashboard de vendas". Nada mais.
+        A skill reconhece o padrão do arquivo e sabe o que fazer.
+
+        Documentos e Arquivos: CSV de vendas + guia de identidade visual + exemplos de dashboard
+        A skill precisa ter acesso a: estrutura das colunas do CSV (produto, data, valor, vendedor),
+        paleta de cores e fontes da marca, e um dashboard anterior como referência de layout.
+
+        Ferramentas: Nenhuma integração externa, claude lê e gera tudo nativamente.
+        Sem MCP, sem API. Claude lê o CSV diretamente, processa os dados e gere um arquivo HTML com gráficos embutidos
+        (Chart.js via CDN). Output é um arquivo pronto para abrir no browser ou enviar por e-mail.
+
+        Entrega final: Dashboard HTML com gráficos, KPIs e identidade visual da marca.
+        Output: arquivo dashboard-semana-XX.html com cards de KPIs (total, vendas, ticket médio, top vendedor), gráfico
+        de linha por periódo, ranking de produtos - tudo nas cores e fonte da marca, sem nenhum ajuste manual.
+
+PASSO 2 - Prompt
+
+    Coletamos tudo oq mapeamos na etapa 1 pedimos para o claude chat gerar um prompt estruturado.
+
+
+PASSO 3 - Criação Claude cowork
+
+    * Modo plano: Peça para o claude planejar a skills antes de criar, validar a estrutura: gatilho, lógica, output. 
+    * Colar o prompt: Cole o prompt, junto com os arquivos de referência em uma única mensagem.
+    * Criação em conjunto: Pede para o claude perguntar se tiver alguma dúvida, oq não bateu com a entrega esperada.
+    * Salvar a skill.
+    
+
+PASSO 4 - Melhoria continua.
+
+    Sempre interagir para cada vez a sua skill ficar mais afiada.
+
+    * Planejar skills
+    * Criar Skiils
+    * Testar Skiils
+    * Iterar skiils
+
+    
+
+

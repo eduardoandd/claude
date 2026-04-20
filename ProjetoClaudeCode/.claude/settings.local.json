@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.coingecko.com)",
+      "WebSearch",
+      "WebFetch(domain:www.coingecko.com)",
+      "WebFetch(domain:support.coingecko.com)",
+      "WebFetch(domain:zuplo.com)",
+      "WebFetch(domain:apidog.com)",
+      "Bash(npx skills *)"
+    ]
+  }
+}
