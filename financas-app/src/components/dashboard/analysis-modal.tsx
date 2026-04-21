@@ -7,6 +7,7 @@ import { MonthlySummary, CategoryExpense, Transaction } from "@/types"
 import { formatCurrency } from "@/lib/utils"
 import { Send, Sparkles, TrendingUp, TrendingDown } from "lucide-react"
 import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 import {
   PieChart,
   Pie,
@@ -491,6 +492,7 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
                       msg.content
                     ) : (
                       <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
                         components={{
                           p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
                           ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-0.5">{children}</ul>,
@@ -502,6 +504,21 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
                           h3: ({ children }) => <h3 className="text-sm font-semibold mb-1 mt-1.5">{children}</h3>,
                           code: ({ children }) => <code className="bg-background/50 rounded px-1 text-xs font-mono">{children}</code>,
                           blockquote: ({ children }) => <blockquote className="border-l-2 border-muted-foreground/40 pl-3 italic">{children}</blockquote>,
+                          table: ({ children }) => (
+                            <div className="overflow-x-auto my-2">
+                              <table className="w-full text-xs border-collapse">{children}</table>
+                            </div>
+                          ),
+                          thead: ({ children }) => <thead className="bg-muted/50">{children}</thead>,
+                          th: ({ children }) => (
+                            <th className="border border-border px-2 py-1.5 text-left font-semibold">{children}</th>
+                          ),
+                          td: ({ children }) => (
+                            <td className="border border-border px-2 py-1.5">{children}</td>
+                          ),
+                          tr: ({ children }) => (
+                            <tr className="even:bg-muted/20">{children}</tr>
+                          ),
                         }}
                       >
                         {msg.content}
