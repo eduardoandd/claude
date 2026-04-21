@@ -9,14 +9,8 @@ Este é o meu primeiro repositório explorando o **Claude Code** — e estou ext
 ### `ProjetoClaudeCode/`
 Meu primeiro projeto concreto: um **dashboard web de Bitcoin em tempo real**. Consome a API pública do CoinGecko, exibe o preço atual com gráficos históricos e um seletor de período interativo. Tudo em um único arquivo HTML/CSS/JS puro, sem frameworks, usando Chart.js via CDN. Simples, direto e funcional.
 
-### `Projeto inicial/`
-O ponto de partida — onde eu dei os primeiros passos com o Claude Code. Inclui uma versão inicial do dashboard de notícias de IA (`novidades-2026-04-13.html`) que serviu de base para evoluir a skill matinal.
-
 ### `ia-matinal/`
-Primeira versão da **Skill "Novidades Matinal de IA"**: ao ser invocada, o Claude busca as últimas notícias de IA nas últimas 24h (Hacker News + TechCrunch), filtra o que importa para builders e desenvolvedores, traduz tudo para português e gera um dashboard HTML elegante pronto para abrir no browser. Um briefing diário de IA com um comando só.
-
-### `ia-matinal-2/`
-Segunda iteração da skill matinal, com melhorias no design e na curadoria das notícias. Inclui o arquivo `novidades-2026-04-13.html` já gerado pela skill — um exemplo real do output produzido.
+**Skill "Novidades Matinal de IA"**: ao ser invocada, o Claude busca as últimas notícias de IA nas últimas 24h (Hacker News + TechCrunch), filtra o que importa para builders e desenvolvedores, traduz tudo para português e gera um dashboard HTML elegante pronto para abrir no browser. Inclui o arquivo `novidades-2026-04-13.html` como exemplo real do output produzido.
 
 ### `skill-dashboard/`
 Skill de **geração de dashboards de vendas**. A partir de dados em planilha (`.xlsx`) e de um brand guideline em PDF, o Claude gera um dashboard HTML completo com identidade visual da marca. Inclui os arquivos de compras do ecossistema e o resultado gerado (`dashboard_vendas_20260418.html`).
