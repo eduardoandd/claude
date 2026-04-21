@@ -1,9 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -m scripts.aggregate_benchmark 'C:\\\\Users\\\\Eduardo Santos\\\\Desktop\\\\Cursos\\\\claude\\\\ia-matinal\\\\novidades-matinal-ia-workspace\\\\iteration-1' --skill-name novidades-matinal-ia)",
-      "Bash(python 'C:\\\\Users\\\\Eduardo Santos\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\dd2db1ef-ce27-423a-8ff2-b239a3d1d024\\\\0cef39cd-c4fa-4440-b765-3287494b6fd1\\\\skills\\\\skill-creator/eval-viewer/generate_review.py' 'C:\\\\Users\\\\Eduardo Santos\\\\Desktop\\\\Cursos\\\\claude\\\\ia-matinal\\\\novidades-matinal-ia-workspace\\\\iteration-1' --skill-name novidades-matinal-ia --static 'C:\\\\Users\\\\Eduardo Santos\\\\Desktop\\\\Cursos\\\\claude\\\\ia-matinal\\\\novidades-matinal-ia-workspace\\\\eval-review-iteration-1.html')",
-      "Bash(start \"C:\\\\Users\\\\Eduardo Santos\\\\Desktop\\\\Cursos\\\\claude\\\\ia-matinal\\\\novidades-matinal-ia-workspace\\\\eval-review-iteration-1.html\")"
+      "WebFetch(domain:news.ycombinator.com)",
+      "WebFetch(domain:techcrunch.com)"
     ]
   }
 }

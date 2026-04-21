@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/Projeto inicial\")",
+      "Bash(rm -rf \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/ia-matinal\")",
+      "Bash(mv \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/ia-matinal-2\" \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/ia-matinal\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

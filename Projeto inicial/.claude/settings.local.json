@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:news.ycombinator.com)",
-      "WebFetch(domain:techcrunch.com)",
-      "Bash(start \"C:\\\\Users\\\\Eduardo Santos\\\\Desktop\\\\Cursos\\\\claude\\\\Projeto inicial\\\\novidades-2026-04-13.html\")"
-    ]
-  }
-}
