@@ -1,38 +1,112 @@
-# Meu Primeiro Repositório com Claude Code
+<div align="center">
 
-Este é o meu primeiro repositório explorando o **Claude Code** — e estou extremamente animado com tudo que já aprendi até aqui. A sensação de conversar com uma IA que escreve, executa e itera código em tempo real ainda parece mágica. Mal posso esperar para descobrir o que mais é possível construir com isso.
+# 🤖 Aprendendo com Claude Code
 
----
+*Meu primeiro repositório explorando o que é possível construir com IA no terminal*
 
-## Estrutura do Repositório
+![Status](https://img.shields.io/badge/status-em%20evolução-brightgreen)
+![Stack](https://img.shields.io/badge/stack-HTML%20%7C%20JS%20%7C%20Python-blue)
+![Feito com](https://img.shields.io/badge/feito%20com-Claude%20Code-blueviolet)
 
-### `ProjetoClaudeCode/`
-Meu primeiro projeto concreto: um **dashboard web de Bitcoin em tempo real**. Consome a API pública do CoinGecko, exibe o preço atual com gráficos históricos e um seletor de período interativo. Tudo em um único arquivo HTML/CSS/JS puro, sem frameworks, usando Chart.js via CDN. Simples, direto e funcional.
-
-### `ia-matinal/`
-**Skill "Novidades Matinal de IA"**: ao ser invocada, o Claude busca as últimas notícias de IA nas últimas 24h (Hacker News + TechCrunch), filtra o que importa para builders e desenvolvedores, traduz tudo para português e gera um dashboard HTML elegante pronto para abrir no browser. Inclui o arquivo `novidades-2026-04-13.html` como exemplo real do output produzido.
-
-### `skill-dashboard/`
-Skill de **geração de dashboards de vendas**. A partir de dados em planilha (`.xlsx`) e de um brand guideline em PDF, o Claude gera um dashboard HTML completo com identidade visual da marca. Inclui os arquivos de compras do ecossistema e o resultado gerado (`dashboard_vendas_20260418.html`).
-
-### `skill-html/`
-Skill para **geração de relatórios em HTML** a partir de documentos enviados. O exemplo de uso foi a criação de um relatório de custos operacionais de chatbot a partir de um PDF fornecido.
-
-### `skill-proposta-comercial/`
-Skill para **geração automática de propostas comerciais** em PDF. Recebe um resumo de reunião e o brand guideline da empresa, e monta uma proposta completa e profissional. Inclui exemplos reais de propostas geradas para diferentes clientes.
-
-### `skill-relatorio-pdf/`
-Skill para **geração de relatórios PDF** com a identidade visual da Credify (vermelho, cinza escuro, turquesa, fonte Poppins). Totalmente dinâmica: adapta estrutura, seções e tom com base no conteúdo fornecido — seja um arquivo `.xlsx`, `.pdf`, `.csv` ou contexto da conversa.
+</div>
 
 ---
 
-## O que estou aprendendo
-
-- Como criar e usar **Skills personalizadas** no Claude Code
-- Como o Claude pode **ler, criar e executar arquivos** de forma autônoma
-- Como transformar prompts em **ferramentas reutilizáveis** para tarefas repetitivas
-- Como integrar **APIs externas**, ler documentos e gerar outputs ricos (HTML, PDF)
+> A sensação de conversar com uma IA que escreve, executa e itera código em tempo real ainda parece mágica.
+> Mal posso esperar para descobrir o que mais é possível construir com isso.
 
 ---
 
-> Repositório em constante evolução. Cada pasta é um experimento, cada skill é uma nova forma de entender o que o Claude Code é capaz de fazer.
+## 📁 Estrutura do Repositório
+
+| Pasta | O que é | Tech |
+|-------|---------|------|
+| [`ProjetoClaudeCode/`](#-projetoclaudecode) | Dashboard de Bitcoin em tempo real | HTML · JS · Chart.js |
+| [`ia-matinal/`](#-ia-matinal) | Skill de briefing diário de IA | HTML · Web Scraping |
+| [`skill-dashboard/`](#-skill-dashboard) | Gerador de dashboards de vendas | HTML · Excel |
+| [`skill-html/`](#-skill-html) | Gerador de relatórios em HTML | HTML · PDF |
+| [`skill-proposta-comercial/`](#-skill-proposta-comercial) | Gerador de propostas comerciais | PDF |
+| [`skill-relatorio-pdf/`](#-skill-relatorio-pdf) | Gerador de relatórios PDF Credify | Python · PDF |
+
+---
+
+## 🪙 ProjetoClaudeCode
+
+Dashboard web para visualizar o preço do **Bitcoin em tempo real**, com gráficos históricos e seletor de período interativo.
+
+- Consome a API pública do **CoinGecko** (sem autenticação)
+- HTML/CSS/JS puro — sem frameworks, sem instalação
+- **Chart.js** via CDN para os gráficos
+- Cache local de 60s para não exceder o rate limit
+- Um único arquivo — abre direto no browser
+
+---
+
+## ☀️ ia-matinal
+
+Skill que gera um **briefing diário de IA** com um comando só.
+
+Ao ser invocada, o Claude:
+1. Busca as últimas notícias em **Hacker News** e **TechCrunch**
+2. Filtra o que importa para builders e desenvolvedores
+3. Traduz tudo para **português brasileiro**
+4. Gera um dashboard HTML elegante pronto para abrir no browser
+
+Inclui `novidades-2026-04-13.html` como exemplo real do output gerado.
+
+---
+
+## 📊 skill-dashboard
+
+Skill para geração de **dashboards de vendas** personalizados.
+
+A partir de uma planilha `.xlsx` e um brand guideline em PDF, o Claude gera um dashboard HTML completo com a identidade visual da marca.
+
+---
+
+## 📄 skill-html
+
+Skill para geração de **relatórios em HTML** a partir de documentos.
+
+Basta enviar um arquivo (`.pdf`, `.xlsx`, `.csv`) e o Claude monta um relatório visual pronto para apresentação.
+
+---
+
+## 💼 skill-proposta-comercial
+
+Skill para geração automática de **propostas comerciais** em PDF.
+
+Recebe um resumo de reunião + brand guideline da empresa e monta uma proposta completa e profissional. Inclui exemplos reais de propostas geradas para diferentes clientes.
+
+---
+
+## 📑 skill-relatorio-pdf
+
+Skill para geração de **relatórios PDF** com a identidade visual da Credify.
+
+- Cores: vermelho `#E71225` · cinza escuro `#1A1A2E` · turquesa `#00B4D8`
+- Fonte **Poppins**, estilo clean e corporativo
+- Totalmente dinâmica — adapta estrutura, seções e tom ao conteúdo fornecido
+- Aceita `.xlsx`, `.pdf`, `.csv`, `.docx` ou contexto da conversa
+
+---
+
+## 🧠 O que estou aprendendo
+
+```
+✦ Criar e usar Skills personalizadas no Claude Code
+✦ Fazer o Claude ler, criar e executar arquivos de forma autônoma
+✦ Transformar prompts em ferramentas reutilizáveis
+✦ Integrar APIs externas e gerar outputs ricos (HTML, PDF)
+✦ Iterar rapidamente com IA no loop de desenvolvimento
+```
+
+---
+
+<div align="center">
+
+*Cada pasta é um experimento. Cada skill é uma nova forma de entender o que o Claude Code é capaz de fazer.*
+
+**🚀 Repositório em constante evolução**
+
+</div>
