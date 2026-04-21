@@ -2,7 +2,7 @@
 
 import { CATEGORIES } from "@/types"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
+import { MonthPicker } from "@/components/ui/month-picker"
 
 interface TransactionFiltersProps {
   month: string
@@ -27,12 +27,7 @@ export function TransactionFilters({
 }: TransactionFiltersProps) {
   return (
     <div className="flex flex-col sm:flex-row gap-3">
-      <Input
-        type="month"
-        value={month}
-        onChange={(e) => onMonthChange(e.target.value)}
-        className="sm:w-44"
-      />
+      <MonthPicker value={month} onChange={onMonthChange} />
 
       <Select value={type} onValueChange={onTypeChange}>
         <SelectTrigger className="sm:w-40">

@@ -5,9 +5,9 @@ import { Header } from "@/components/layout/header"
 import { SummaryCards } from "@/components/dashboard/summary-cards"
 import { CategoryChart } from "@/components/dashboard/category-chart"
 import { RecentTransactions } from "@/components/dashboard/recent-transactions"
-import { Input } from "@/components/ui/input"
 import { Transaction, MonthlySummary, CategoryExpense } from "@/types"
 import { DashboardAnalysisContext } from "@/components/dashboard/analysis-modal"
+import { MonthNav } from "@/components/dashboard/month-nav"
 import { format } from "date-fns"
 
 interface PageProps {
@@ -82,9 +82,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
               <h1 className="text-2xl font-bold">Dashboard</h1>
               <p className="text-sm text-muted-foreground">Resumo financeiro do mês</p>
             </div>
-            <form method="get">
-              <Input type="month" name="month" defaultValue={currentMonth} className="w-44" />
-            </form>
+            <MonthNav currentMonth={currentMonth} />
           </div>
 
           <SummaryCards summary={summary} context={analysisContext} />

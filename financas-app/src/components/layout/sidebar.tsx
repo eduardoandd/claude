@@ -28,7 +28,7 @@ export function Sidebar() {
         <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
           <TrendingUp className="h-5 w-5 text-primary-foreground" />
         </div>
-        <span className="font-bold text-sidebar-foreground">FinançasPessoais</span>
+        <span className="font-bold text-sidebar-foreground">Finança<span className="text-primary">AI</span></span>
       </div>
 
       <nav className="flex-1 py-4 px-3 space-y-1">

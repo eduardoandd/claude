@@ -5,7 +5,19 @@
       "Bash(rm -rf \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/ia-matinal\")",
       "Bash(mv \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/ia-matinal-2\" \"/c/Users/Eduardo Santos/Desktop/Cursos/claude/ia-matinal\")",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(npm install *)",
+      "WebSearch",
+      "WebFetch(domain:docs.pluggy.ai)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.pluggy.ai)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Skill(claude-api)",
+      "Skill(claude-api:*)",
+      "Bash(npx tsc *)",
+      "Bash(git push *)"
     ]
   }
 }

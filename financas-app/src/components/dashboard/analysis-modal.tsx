@@ -323,6 +323,9 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
   const chatEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const hasTriggered = useRef(false)
+  const streamBufferRef = useRef("")
+  const streamDoneRef = useRef(false)
+  const typewriterRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
     if (!open) {
@@ -330,8 +333,13 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
       setInput("")
       setStreaming(false)
       hasTriggered.current = false
+      stopTypewriter()
     }
   }, [open])
+
+  useEffect(() => {
+    return () => stopTypewriter()
+  }, [])
 
   useEffect(() => {
     if (open && !hasTriggered.current) {
@@ -344,14 +352,47 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
+  function stopTypewriter() {
+    if (typewriterRef.current) {
+      clearInterval(typewriterRef.current)
+      typewriterRef.current = null
+    }
+  }
+
+  function startTypewriter(msgIndex: number) {
+    let displayed = 0
+    typewriterRef.current = setInterval(() => {
+      const buffer = streamBufferRef.current
+      const done = streamDoneRef.current
+      if (displayed >= buffer.length) {
+        if (done) stopTypewriter()
+        return
+      }
+      const step = 4
+      const next = buffer.slice(0, displayed + step)
+      displayed = next.length
+      setMessages((prev) => {
+        const msgs = [...prev]
+        if (msgs[msgIndex]) msgs[msgIndex] = { ...msgs[msgIndex], content: next }
+        return msgs
+      })
+    }, 18)
+  }
+
   async function sendMessage(content: string, history: ChatMessage[]) {
     if (streaming) return
     setStreaming(true)
+    stopTypewriter()
+    streamBufferRef.current = ""
+    streamDoneRef.current = false
 
     const userMsg: ChatMessage = { role: "user", content }
     const next = [...history, userMsg]
+    const msgIndex = next.length
     setMessages([...next, { role: "assistant", content: "" }])
     setInput("")
+
+    startTypewriter(msgIndex)
 
     try {
       const res = await fetch("/api/analyze", {
@@ -369,31 +410,29 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
         }),
       })
 
-      if (!res.ok) {
-        throw new Error(await res.text())
-      }
+      if (!res.ok) throw new Error(await res.text())
 
       const reader = res.body!.getReader()
       const decoder = new TextDecoder()
-
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
-        const chunk = decoder.decode(value, { stream: true })
-        setMessages((prev) => {
-          const last = prev[prev.length - 1]
-          return [...prev.slice(0, -1), { role: "assistant", content: last.content + chunk }]
-        })
+        streamBufferRef.current += decoder.decode(value, { stream: true })
       }
     } catch {
+      stopTypewriter()
       setMessages((prev) => {
-        const last = prev[prev.length - 1]
-        return [
-          ...prev.slice(0, -1),
-          { role: "assistant", content: "Erro ao gerar análise. Verifique se a ANTHROPIC_API_KEY está configurada." },
-        ]
+        const msgs = [...prev]
+        if (msgs[msgIndex]) {
+          msgs[msgIndex] = {
+            role: "assistant",
+            content: "Erro ao gerar análise. Verifique se a ANTHROPIC_API_KEY está configurada.",
+          }
+        }
+        return msgs
       })
     } finally {
+      streamDoneRef.current = true
       setStreaming(false)
       inputRef.current?.focus()
     }

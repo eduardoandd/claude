@@ -10,8 +10,18 @@ import { TransactionFilters } from "@/components/transactions/transaction-filter
 import { ImportDialog } from "@/components/transactions/import-dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Transaction } from "@/types"
-import { Plus, Upload } from "lucide-react"
+import { Plus, Upload, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 
 export default function TransactionsPage() {
@@ -21,6 +31,7 @@ export default function TransactionsPage() {
   const [formOpen, setFormOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const [month, setMonth] = useState(format(new Date(), "yyyy-MM"))
   const [typeFilter, setTypeFilter] = useState("all")
@@ -64,10 +75,11 @@ export default function TransactionsPage() {
     fetchTransactions()
   }, [fetchTransactions])
 
-  async function handleDelete(id: string) {
-    if (!confirm("Excluir esta transação?")) return
+  async function confirmDelete() {
+    if (!deletingId) return
     const supabase = createClient()
-    await supabase.from("transactions").delete().eq("id", id)
+    await supabase.from("transactions").delete().eq("id", deletingId)
+    setDeletingId(null)
     fetchTransactions()
   }
 
@@ -126,7 +138,7 @@ export default function TransactionsPage() {
                 <TransactionList
                   transactions={transactions}
                   onEdit={handleEdit}
-                  onDelete={handleDelete}
+                  onDelete={(id) => setDeletingId(id)}
                 />
               )}
             </CardContent>
@@ -146,6 +158,31 @@ export default function TransactionsPage() {
         onOpenChange={setImportOpen}
         onSuccess={fetchTransactions}
       />
+
+      <AlertDialog open={!!deletingId} onOpenChange={(v) => { if (!v) setDeletingId(null) }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <div className="flex items-center gap-3 mb-1">
+              <div className="h-10 w-10 rounded-full bg-destructive/10 flex items-center justify-center">
+                <Trash2 className="h-5 w-5 text-destructive" />
+              </div>
+              <AlertDialogTitle>Excluir transação</AlertDialogTitle>
+            </div>
+            <AlertDialogDescription>
+              Esta ação não pode ser desfeita. A transação será removida permanentemente.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={confirmDelete}
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
