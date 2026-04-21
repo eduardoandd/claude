@@ -369,7 +369,7 @@ export function AnalysisModal({ open, onClose, cardType, title, context }: Analy
         if (done) stopTypewriter()
         return
       }
-      const step = 4
+      const step = 6
       const next = buffer.slice(0, displayed + step)
       displayed = next.length
       setMessages((prev) => {
